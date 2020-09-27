@@ -58,7 +58,10 @@ export const chatsReducer: Reducer<ChatsReducerState, ChatsActions> = (state = i
         case ChatsActionTypes.CHATS_READED: {
             const chats = clone(state.chats);
             const iChat = state.chats.findIndex(chat => chat.id === action.payload.chatId);
-            chats[iChat].unreadMessages = [];
+            
+            if (iChat !== -1 && chats[iChat]) {
+                chats[iChat].unreadMessages = [];
+            }
             
             return {
                 ...state,
